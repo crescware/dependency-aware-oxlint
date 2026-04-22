@@ -1,0 +1,10 @@
+{
+  "name": "daox-fixture-rc-path-config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@crescware/dependency-aware-oxlint": "workspace:*",
+    "oxlint": "^1.61.0"
+  }
+}
