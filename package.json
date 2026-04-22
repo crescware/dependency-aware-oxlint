@@ -1,6 +1,51 @@
 {
-  "name": "dependency-aware-oxlint",
+  "name": "@crescware/dependency-aware-oxlint",
   "version": "0.0.0",
-  "private": true,
+  "description": "A scope-aware runner for oxlint that applies lint rules based on the import dependency graph.",
+  "bin": {
+    "daox": "./dist/cli.js",
+    "dependency-aware-oxlint": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsgo -p tsconfig.json",
+    "check": "pnpm run check:types && pnpm run check:lint",
+    "check:lint": "oxlint && oxfmt --check",
+    "check:types": "tsgo -p tsconfig.json --noEmit",
+    "dev": "tsgo -p tsconfig.json --watch",
+    "exec": "node dist/cli.js",
+    "format": "oxlint --fix && oxfmt",
+    "prepublishOnly": "pnpm build",
+    "test": "pnpm build && vitest run"
+  },
+  "dependencies": {
+    "cac": "^7.0.0",
+    "jiti": "^2.6.1",
+    "oxc-parser": "^0.127.0",
+    "oxc-resolver": "^11.19.1",
+    "picomatch": "^4.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.12.2",
+    "@types/picomatch": "^4.0.0",
+    "@typescript/native-preview": "7.0.0-dev.20260421.2",
+    "oxfmt": "^0.46.0",
+    "oxlint": "^1.61.0",
+    "vitest": "^2.1.0"
+  },
+  "peerDependencies": {
+    "oxlint": ">=1.0.0"
+  },
   "packageManager": "pnpm@10.33.1+sha512.05ba3c1d5d1c18f68df06470d74055e62d41fc110a0c660db1b2dfb2785327f04cf0f68345d4609bc52089e7fa0343c31593b2f9594e2c5d5da426230acc9820"
 }
