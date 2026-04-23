@@ -43,24 +43,6 @@ importers:
         specifier: ^2.1.0
         version: 2.1.9(@types/node@24.12.2)
 
-  integration-tests/fixtures/inline-config:
-    dependencies:
-      '@crescware/dependency-aware-oxlint':
-        specifier: workspace:*
-        version: link:../../..
-      oxlint:
-        specifier: ^1.61.0
-        version: 1.61.0
-
-  integration-tests/fixtures/rc-path-config:
-    dependencies:
-      '@crescware/dependency-aware-oxlint':
-        specifier: workspace:*
-        version: link:../../..
-      oxlint:
-        specifier: ^1.61.0
-        version: 1.61.0
-
 packages:
 
   '@emnapi/core@1.9.2':
