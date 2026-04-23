@@ -1,5 +1,5 @@
 {
-  "name": "daox-fixture-inline-config",
+  "name": "dependency-aware-oxlint-fixture-inline-config",
   "version": "0.0.0",
   "private": true,
   "type": "module",

@@ -1,5 +1,5 @@
 {
-  "name": "daox-fixture-rc-path-config",
+  "name": "dependency-aware-oxlint-fixture-rc-path-config",
   "version": "0.0.0",
   "private": true,
   "type": "module",

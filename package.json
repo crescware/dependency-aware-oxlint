@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "description": "A scope-aware runner for oxlint that applies lint rules based on the import dependency graph.",
   "bin": {
-    "daox": "./dist/cli.js",
     "dependency-aware-oxlint": "./dist/cli.js"
   },
   "files": [
