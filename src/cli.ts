@@ -144,7 +144,7 @@ async function materializeOxlintConfig(
       : resolve(configDir, scope.oxlintrcPath);
     return { path, cleanup: async () => {} };
   }
-  const path = join(tmpdir(), `daox-${scope.name}-${randomUUID()}.json`);
+  const path = join(tmpdir(), `dependency-aware-oxlint-${scope.name}-${randomUUID()}.json`);
   await writeFile(path, JSON.stringify(scope.oxlintConfig), "utf8");
   return {
     path,
