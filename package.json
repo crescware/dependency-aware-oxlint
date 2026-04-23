@@ -4,7 +4,7 @@
   "description": "A scope-aware runner for oxlint that applies lint rules based on the import dependency graph.",
   "license": "MIT",
   "bin": {
-    "dependency-aware-oxlint": "./dist/cli.js"
+    "dependency-aware-oxlint": "dist/cli.js"
   },
   "files": [
     "dist"
