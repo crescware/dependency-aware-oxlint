@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { cac } from "cac";
+import { Command } from "commander";
 import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
 import { rm, writeFile } from "node:fs/promises";
@@ -24,25 +24,26 @@ type CliOptions = {
 };
 
 async function main(): Promise<void> {
-  const cli = cac("dependency-aware-oxlint");
-  cli
-    .command(
-      "[...files]",
+  const program = new Command();
+  program
+    .name("dependency-aware-oxlint")
+    .description(
       "Run oxlint for each scope defined by the dependency-aware config",
     )
+    .argument("[files...]")
     .option("-c, --config <path>", "Path to dependency-aware-oxlint.config.ts")
     .option(
       "-s, --scope <name>",
       "Only run the given scope (can be passed multiple times)",
-      { default: [] },
+      (value: string, previous: string[]) => [...previous, value],
+      [] as string[],
     )
     .option("--cwd <path>", "Working directory (defaults to process.cwd)")
     .action(async (_files: string[], flags: CliOptions) => {
       const code = await run(flags);
       process.exit(code);
     });
-  cli.help();
-  cli.parse();
+  await program.parseAsync();
 }
 
 async function run(flags: CliOptions): Promise<number> {
