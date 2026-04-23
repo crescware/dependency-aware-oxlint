@@ -2,7 +2,7 @@
 import { Command } from "commander";
 import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
-import { rm, writeFile } from "node:fs/promises";
+import { realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, isAbsolute, join, resolve } from "node:path";
 
@@ -67,9 +67,11 @@ async function run(flags: CliOptions): Promise<number> {
 
   const configDir = dirname(configPath);
   const config = await loadConfig(configPath);
-  const rootDir = isAbsolute(config.rootDir)
-    ? config.rootDir
-    : resolve(configDir, config.rootDir);
+  const rootDir = await realpath(
+    isAbsolute(config.rootDir)
+      ? config.rootDir
+      : resolve(configDir, config.rootDir),
+  );
   const tsconfig = config.tsconfig
     ? isAbsolute(config.tsconfig)
       ? config.tsconfig
@@ -95,7 +97,7 @@ async function run(flags: CliOptions): Promise<number> {
 
   const runs: ScopeRunResult[] = await Promise.all(
     activeScopes.map(async (v) => {
-      const resolved = resolveScope(v, graph);
+      const resolved = resolveScope(v, graph, rootDir);
       const { path: configFilePath, cleanup } = await materializeOxlintConfig(
         v,
         configDir,
@@ -145,7 +147,10 @@ async function materializeOxlintConfig(
       : resolve(configDir, scope.oxlintrcPath);
     return { path, cleanup: async () => {} };
   }
-  const path = join(tmpdir(), `dependency-aware-oxlint-${scope.name}-${randomUUID()}.json`);
+  const path = join(
+    tmpdir(),
+    `dependency-aware-oxlint-${scope.name}-${randomUUID()}.json`,
+  );
   await writeFile(path, JSON.stringify(scope.oxlintConfig), "utf8");
   return {
     path,

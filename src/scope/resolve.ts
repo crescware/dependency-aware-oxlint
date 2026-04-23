@@ -1,4 +1,5 @@
-import picomatch from "picomatch";
+import ignore from "ignore";
+import { isAbsolute, relative, sep } from "node:path";
 
 import type { DependencyGraph, ScopeDefinition } from "../types.js";
 
@@ -10,36 +11,60 @@ export type ResolvedScope = {
 export function resolveScope(
   scope: ScopeDefinition,
   graph: DependencyGraph,
+  rootDir: string,
 ): ResolvedScope {
-  const includeMatchers = scope.include.map((v) => picomatch(v));
-  const excludeMatchers = (scope.exclude ?? []).map((v) => picomatch(v));
+  const includeMatcher = ignore().add(scope.include);
+  const excludePatterns = scope.exclude ?? [];
+  const excludeMatcher = ignore().add(excludePatterns);
+  const hasExclude = excludePatterns.length > 0;
 
-  const matchesAnyInclude = (file: string) =>
-    includeMatchers.some((v) => v(file));
-  const matchesAnyExclude = (file: string) =>
-    excludeMatchers.some((v) => v(file));
+  const toRel = (file: string): string | null => {
+    const rel = relative(rootDir, file);
+    if (rel === "" || rel.startsWith("..") || isAbsolute(rel)) {
+      return null;
+    }
+    return sep === "/" ? rel : rel.split(sep).join("/");
+  };
 
-  const files = graph.allFiles().filter((v) => {
-    if (!matchesAnyInclude(v)) {
+  const matchesAnyInclude = (file: string): boolean => {
+    const rel = toRel(file);
+    if (rel === null) {
       return false;
     }
-    if (excludeMatchers.length === 0) {
-      return true;
-    }
-    if (matchesAnyExclude(v)) {
+    return includeMatcher.ignores(rel);
+  };
+  const matchesAnyExclude = (file: string): boolean => {
+    const rel = toRel(file);
+    if (rel === null) {
       return false;
     }
-    const ancestors = graph.ancestors(v);
-    if (ancestors.size === 0) {
-      return true;
-    }
-    for (const a of ancestors) {
-      if (!matchesAnyExclude(a)) {
+    return excludeMatcher.ignores(rel);
+  };
+
+  const files = graph
+    .allFiles()
+    .filter((v) => {
+      if (!matchesAnyInclude(v)) {
+        return false;
+      }
+      if (!hasExclude) {
         return true;
       }
-    }
-    return false;
-  });
+      if (matchesAnyExclude(v)) {
+        return false;
+      }
+      const ancestors = graph.ancestors(v);
+      if (ancestors.size === 0) {
+        return true;
+      }
+      for (const a of ancestors) {
+        if (!matchesAnyExclude(a)) {
+          return true;
+        }
+      }
+      return false;
+    })
+    .sort();
 
   return {
     name: scope.name,
