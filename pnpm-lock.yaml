@@ -11,6 +11,9 @@ importers:
       commander:
         specifier: ^12.0.0
         version: 12.1.0
+      ignore:
+        specifier: ^7.0.5
+        version: 7.0.5
       jiti:
         specifier: ^2.6.1
         version: 2.6.1
@@ -20,16 +23,10 @@ importers:
       oxc-resolver:
         specifier: ^11.19.1
         version: 11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)
-      picomatch:
-        specifier: ^4.0.4
-        version: 4.0.4
     devDependencies:
       '@types/node':
         specifier: ^24.12.2
         version: 24.12.2
-      '@types/picomatch':
-        specifier: ^4.0.0
-        version: 4.0.3
       '@typescript/native-preview':
         specifier: 7.0.0-dev.20260421.2
         version: 7.0.0-dev.20260421.2
@@ -830,9 +827,6 @@ packages:
   '@types/node@24.12.2':
     resolution: {integrity: sha512-A1sre26ke7HDIuY/M23nd9gfB+nrmhtYyMINbjI1zHJxYteKR6qSMX56FsmjMcDb3SMcjJg5BiRRgOCC/yBD0g==}
 
-  '@types/picomatch@4.0.3':
-    resolution: {integrity: sha512-iG0T6+nYJ9FAPmx9SsUlnwcq1ZVRuCXcVEvWnntoPlrOpwtSTKNDC9uVAxTsC3PUvJ+99n4RpAcNgBbHX3JSnQ==}
-
   '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260421.2':
     resolution: {integrity: sha512-fHv1r3ZmVo6zxuAIFmuX3w9QxbcauoG0SsWhmDwm6VmRubLlOJIcmTtlmV3JAb9oOnq8LuzZljzT7Q39fSMQDw==}
     cpu: [arm64]
@@ -954,6 +948,10 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
+  ignore@7.0.5:
+    resolution: {integrity: sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg==}
+    engines: {node: '>= 4'}
+
   jiti@2.6.1:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
     hasBin: true
@@ -1003,10 +1001,6 @@ packages:
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
-
-  picomatch@4.0.4:
-    resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
-    engines: {node: '>=12'}
 
   postcss@8.5.10:
     resolution: {integrity: sha512-pMMHxBOZKFU6HgAZ4eyGnwXF/EvPGGqUr0MnZ5+99485wwW41kW91A4LOGxSHhgugZmSChL5AlElNdwlNgcnLQ==}
@@ -1551,8 +1545,6 @@ snapshots:
     dependencies:
       undici-types: 7.16.0
 
-  '@types/picomatch@4.0.3': {}
-
   '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260421.2':
     optional: true
 
@@ -1683,6 +1675,8 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
+  ignore@7.0.5: {}
+
   jiti@2.6.1: {}
 
   loupe@3.2.1: {}
@@ -1797,8 +1791,6 @@ snapshots:
   pathval@2.0.1: {}
 
   picocolors@1.1.1: {}
-
-  picomatch@4.0.4: {}
 
   postcss@8.5.10:
     dependencies:
