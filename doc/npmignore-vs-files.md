@@ -26,14 +26,14 @@ tests are still type-checked.
 ### B. Drop `files` and rely on `.npmignore`
 
 Remove the `files` field from `package.json` and enumerate everything
-that should *not* be published in `.npmignore` (`src/`,
+that should _not_ be published in `.npmignore` (`src/`,
 `integration-tests/`, `tsconfig.json`, `.oxlintrc.json`,
 `.oxfmtrc.json`, `mise.toml`, `pnpm-workspace.yaml`, `pnpm-lock.yaml`,
 `dist/**/*.test.*`, …).
 
 - Puts the entire publish concern into a single file that is
   explicitly about publishing.
-- But it is a *blacklist*: any new file added to the repository root
+- But it is a _blacklist_: any new file added to the repository root
   is published by default unless someone remembers to ignore it. That
   is the failure mode behind historical "npm leaked secrets" incidents.
 

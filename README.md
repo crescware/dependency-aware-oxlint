@@ -141,7 +141,7 @@ Options:
 For each scope, the set of files to lint is computed against the whole dependency graph rooted at `rootDir`:
 
 1. Start with every file that matches `include`.
-2. If the file matches `exclude`, keep it only when **at least one ancestor** (a file that transitively imports it) is *not* excluded. Files with no ancestors are dropped when they match `exclude`.
+2. If the file matches `exclude`, keep it only when **at least one ancestor** (a file that transitively imports it) is _not_ excluded. Files with no ancestors are dropped when they match `exclude`.
 
 Example (see `integration-tests/fixtures/inline-config/`):
 
@@ -175,16 +175,16 @@ This repository uses `pnpm` (pinned via `packageManager`) and the Node version d
 
 Scripts (`package.json`):
 
-| Script         | Command                                 |
-| -------------- | --------------------------------------- |
-| `build`        | `tsgo -p tsconfig.json`                 |
-| `dev`          | `tsgo -p tsconfig.json --watch`         |
-| `check`        | `pnpm check:types && pnpm check:lint`   |
-| `check:types`  | `tsgo -p tsconfig.json --noEmit`        |
-| `check:lint`   | `oxlint && oxfmt --check`               |
-| `format`       | `oxlint --fix && oxfmt`                 |
-| `test`         | `pnpm build && vitest run`              |
-| `exec`         | `node dist/cli.js`                      |
+| Script        | Command                               |
+| ------------- | ------------------------------------- |
+| `build`       | `tsgo -p tsconfig.json`               |
+| `dev`         | `tsgo -p tsconfig.json --watch`       |
+| `check`       | `pnpm check:types && pnpm check:lint` |
+| `check:types` | `tsgo -p tsconfig.json --noEmit`      |
+| `check:lint`  | `oxlint && oxfmt --check`             |
+| `format`      | `oxlint --fix && oxfmt`               |
+| `test`        | `pnpm build && vitest run`            |
+| `exec`        | `node dist/cli.js`                    |
 
 ## License
 
