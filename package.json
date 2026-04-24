@@ -1,6 +1,6 @@
 {
   "name": "@crescware/dependency-aware-oxlint",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A scope-aware runner for oxlint that applies lint rules based on the import dependency graph.",
   "license": "MIT",
   "bin": {
